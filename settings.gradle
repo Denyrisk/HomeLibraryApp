@@ -1,0 +1,3 @@
+rootProject.name = "HomeLibraryApp"
+include ':app'
+
