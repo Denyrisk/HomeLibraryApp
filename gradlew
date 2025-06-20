@@ -1,47 +1,42 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-# -----------------------------------------------------------------------------
-# Gradle start up script for UN*X
-# -----------------------------------------------------------------------------
+##############################################################################
+##
+##  Gradle start up script for UN*X
+##
+##############################################################################
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS=""
 
 APP_NAME="Gradle"
-APP_BASE_NAME=$(basename "$0")
+APP_BASE_NAME=`basename "$0"`
 
-# Use the maximum available, or set MAX_FD != -1 to use that value.
-MAX_FD="maximum"
+# Resolve links: $0 may be a softlink
+PRG="$0"
 
-warn() {
-  echo "$APP_NAME: $*" >&2
-}
+while [ -h "$PRG" ] ; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`/"$link"
+  fi
+done
 
-die() {
-  echo
-  echo "$APP_NAME: $*" >&2
-  exit 1
-}
+PRGDIR=`dirname "$PRG"`
 
-# OS specific support (must be 'true' or 'false').
-cygwin=false
-msys=false
-darwin=false
-case "$(uname)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*) msys=true ;;
-  Darwin*) darwin=true ;;
-esac
+# Only set APP_HOME if not already set
+[ -z "$APP_HOME" ] && APP_HOME=`cd "$PRGDIR/.." >/dev/null; pwd`
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
-if [ -z "$JAVA_HOME" ] ; then
-  JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+if [ -z "$JAVA_HOME" ]; then
+  JAVACMD=java
+else
+  JAVACMD="$JAVA_HOME/bin/java"
 fi
 
-if [ ! -x "$JAVA_HOME/bin/java" ] ; then
-  die "ERROR: JAVA_HOME is not set correctly."
-fi
-
-exec "$JAVA_HOME/bin/java" $DEFAULT_JVM_OPTS -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
+exec "$JAVACMD" ${DEFAULT_JVM_OPTS} -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
 
